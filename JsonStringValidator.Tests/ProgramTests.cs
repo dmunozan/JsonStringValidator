@@ -30,6 +30,12 @@ namespace JsonStringValidator.Tests
         }
 
         [Fact]
+        public void IsValidJsonStringWhenOnlyBackslashShouldReturnInvalid()
+        {
+            Assert.Equal("Invalid", Program.IsValidJsonString("\\"));
+        }
+
+        [Fact]
         public void IsValidJsonStringWhenOnlyControlCharacterShouldReturnInvalid()
         {
             const int EscapeChar = 27;
