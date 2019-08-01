@@ -25,12 +25,21 @@ namespace JsonStringValidator
 
             string unquotedInputData = inputData.Substring(1, inputData.Length - MinimumQuotationMarks);
 
-            for (int i = 0; i < unquotedInputData.Length; i++)
+            int index = 0;
+
+            while (index < unquotedInputData.Length)
             {
-                if (unquotedInputData[i] <= Convert.ToChar(ControlCharUpperLimit) || unquotedInputData[i] == Convert.ToChar(Backslash) || unquotedInputData[i] == Convert.ToChar(QuotationMark))
+                if (unquotedInputData[index] <= Convert.ToChar(ControlCharUpperLimit) || unquotedInputData[index] == Convert.ToChar(QuotationMark))
                 {
                     return "Invalid";
                 }
+
+                if (unquotedInputData[index] == Convert.ToChar(Backslash) && (index == unquotedInputData.Length - 1 || unquotedInputData[++index] != Convert.ToChar(QuotationMark)))
+                {
+                    return "Invalid";
+                }
+
+                index++;
             }
 
             return "Valid";
