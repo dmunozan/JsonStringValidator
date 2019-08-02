@@ -80,6 +80,12 @@ namespace JsonStringValidator.Tests
         }
 
         [Fact]
+        public void IsValidJsonStringWhenBackslashAndBackslashShouldReturnValid()
+        {
+            Assert.Equal("Valid", Program.IsValidJsonString("\"\\\\\""));
+        }
+
+        [Fact]
         public void IsQuotedWhenInputDataIsNotWrappedOnDoubleQuotesShouldReturnFalse()
         {
             Assert.False(Program.IsQuoted("unquoted text"));
