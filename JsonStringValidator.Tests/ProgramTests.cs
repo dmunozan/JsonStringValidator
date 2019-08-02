@@ -134,5 +134,21 @@ namespace JsonStringValidator.Tests
 
             Assert.True(Program.IsEscapableCharacter(Backspace));
         }
+
+        [Fact]
+        public void IsEscapableCharacterWhenFormfeedShouldReturnTrue()
+        {
+            const char Formfeed = 'f';
+
+            Assert.True(Program.IsEscapableCharacter(Formfeed));
+        }
+
+        [Fact]
+        public void IsEscapableCharacterWhenNewlineShouldReturnTrue()
+        {
+            const char Newline = 'n';
+
+            Assert.True(Program.IsEscapableCharacter(Newline));
+        }
     }
 }
