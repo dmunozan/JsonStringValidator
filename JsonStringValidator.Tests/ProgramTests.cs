@@ -150,5 +150,13 @@ namespace JsonStringValidator.Tests
 
             Assert.True(Program.IsEscapableCharacter(Newline));
         }
+
+        [Fact]
+        public void IsEscapableCharacterWhenCarriageReturnShouldReturnTrue()
+        {
+            const char CarriageReturn = 'r';
+
+            Assert.True(Program.IsEscapableCharacter(CarriageReturn));
+        }
     }
 }
