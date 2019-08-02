@@ -102,5 +102,29 @@ namespace JsonStringValidator.Tests
         {
             Assert.False(Program.IsQuoted("\""));
         }
+
+        [Fact]
+        public void IsEscapableCharacterWhenDoubleQuoteShouldReturnTrue()
+        {
+            const int QuotationMark = 34;
+
+            Assert.True(Program.IsEscapableCharacter(Convert.ToChar(QuotationMark)));
+        }
+
+        [Fact]
+        public void IsEscapableCharacterWhenBackslashShouldReturnTrue()
+        {
+            const int Backslash = 92;
+
+            Assert.True(Program.IsEscapableCharacter(Convert.ToChar(Backslash)));
+        }
+
+        [Fact]
+        public void IsEscapableCharacterWhenSlashShouldReturnTrue()
+        {
+            const int Slash = 47;
+
+            Assert.True(Program.IsEscapableCharacter(Convert.ToChar(Slash)));
+        }
     }
 }
