@@ -66,8 +66,9 @@ namespace JsonStringValidator
             const char Backspace = 'b';
             const char Formfeed = 'f';
             const char Newline = 'n';
+            const char CarriageReturn = 'r';
 
-            char[] escapableCharacters = { Convert.ToChar(QuotationMark), Convert.ToChar(Backslash), Convert.ToChar(Slash), Backspace, Formfeed, Newline };
+            char[] escapableCharacters = { Convert.ToChar(QuotationMark), Convert.ToChar(Backslash), Convert.ToChar(Slash), Backspace, Formfeed, Newline, CarriageReturn };
 
             return Array.IndexOf(escapableCharacters, escapedChar) >= 0;
         }
