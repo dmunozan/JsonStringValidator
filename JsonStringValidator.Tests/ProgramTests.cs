@@ -126,5 +126,13 @@ namespace JsonStringValidator.Tests
 
             Assert.True(Program.IsEscapableCharacter(Convert.ToChar(Slash)));
         }
+
+        [Fact]
+        public void IsEscapableCharacterWhenBackspaceShouldReturnTrue()
+        {
+            const char Backspace = 'b';
+
+            Assert.True(Program.IsEscapableCharacter(Backspace));
+        }
     }
 }
