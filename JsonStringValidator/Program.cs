@@ -34,7 +34,7 @@ namespace JsonStringValidator
                     return "Invalid";
                 }
 
-                if (unquotedInputData[index] == Convert.ToChar(Backslash) && (index == unquotedInputData.Length - 1 || unquotedInputData[++index] != Convert.ToChar(QuotationMark)))
+                if (unquotedInputData[index] == Convert.ToChar(Backslash) && (index == unquotedInputData.Length - 1 || !IsEscapableCharacter(unquotedInputData[++index])))
                 {
                     return "Invalid";
                 }
@@ -43,6 +43,14 @@ namespace JsonStringValidator
             }
 
             return "Valid";
+        }
+
+        public static bool IsEscapableCharacter(char escapedChar)
+        {
+            const int QuotationMark = 34;
+            const int Backslash = 92;
+
+            return escapedChar == Convert.ToChar(QuotationMark) || escapedChar == Convert.ToChar(Backslash);
         }
 
         public static bool IsQuoted(string inputData)
