@@ -64,8 +64,10 @@ namespace JsonStringValidator
         public static bool IsEscapableCharacter(char escapedChar)
         {
             const char Backspace = 'b';
+            const char Formfeed = 'f';
+            const char Newline = 'n';
 
-            char[] escapableCharacters = { Convert.ToChar(QuotationMark), Convert.ToChar(Backslash), Convert.ToChar(Slash), Backspace };
+            char[] escapableCharacters = { Convert.ToChar(QuotationMark), Convert.ToChar(Backslash), Convert.ToChar(Slash), Backspace, Formfeed, Newline };
 
             return Array.IndexOf(escapableCharacters, escapedChar) >= 0;
         }
