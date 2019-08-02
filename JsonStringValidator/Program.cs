@@ -5,7 +5,9 @@ namespace JsonStringValidator
 {
     public class Program
     {
+        const int ControlCharUpperLimit = 31;
         const int QuotationMark = 34;
+        const int Slash = 47;
         const int Backslash = 92;
         const int MinimumQuotationMarks = 2;
 
@@ -17,8 +19,6 @@ namespace JsonStringValidator
 
         public static string IsValidJsonString(string inputData)
         {
-            const int ControlCharUpperLimit = 31;
-
             if (inputData == null || !IsQuoted(inputData))
             {
                 return "Invalid";
@@ -63,8 +63,6 @@ namespace JsonStringValidator
 
         public static bool IsEscapableCharacter(char escapedChar)
         {
-            const int Slash = 47;
-
             char[] escapableCharacters = { Convert.ToChar(QuotationMark), Convert.ToChar(Backslash), Convert.ToChar(Slash) };
 
             return Array.IndexOf(escapableCharacters, escapedChar) >= 0;
