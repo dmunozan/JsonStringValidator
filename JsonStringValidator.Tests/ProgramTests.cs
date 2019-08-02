@@ -166,5 +166,13 @@ namespace JsonStringValidator.Tests
 
             Assert.True(Program.IsEscapableCharacter(HorizontalTab));
         }
+
+        [Fact]
+        public void IsEscapableCharacterWhenNonEscapableCharacterShouldReturnFalse()
+        {
+            const char NonEscapableCharacter = 'a';
+
+            Assert.False(Program.IsEscapableCharacter(NonEscapableCharacter));
+        }
     }
 }
