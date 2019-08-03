@@ -106,73 +106,61 @@ namespace JsonStringValidator.Tests
         [Fact]
         public void IsEscapableCharacterWhenDoubleQuoteShouldReturnTrue()
         {
-            const int QuotationMark = 34;
-
-            Assert.True(Program.IsEscapableCharacter(Convert.ToChar(QuotationMark)));
+            Assert.True(Program.IsEscapableCharacter("0123\\\"NoHex", 5));
         }
 
         [Fact]
         public void IsEscapableCharacterWhenBackslashShouldReturnTrue()
         {
-            const int Backslash = 92;
-
-            Assert.True(Program.IsEscapableCharacter(Convert.ToChar(Backslash)));
+            Assert.True(Program.IsEscapableCharacter("0123\\\\NoHex", 5));
         }
 
         [Fact]
         public void IsEscapableCharacterWhenSlashShouldReturnTrue()
         {
-            const int Slash = 47;
-
-            Assert.True(Program.IsEscapableCharacter(Convert.ToChar(Slash)));
+            Assert.True(Program.IsEscapableCharacter("0123\\/NoHex", 5));
         }
 
         [Fact]
         public void IsEscapableCharacterWhenBackspaceShouldReturnTrue()
         {
-            const char Backspace = 'b';
-
-            Assert.True(Program.IsEscapableCharacter(Backspace));
+            Assert.True(Program.IsEscapableCharacter("0123\\bNoHex", 5));
         }
 
         [Fact]
         public void IsEscapableCharacterWhenFormfeedShouldReturnTrue()
         {
-            const char Formfeed = 'f';
-
-            Assert.True(Program.IsEscapableCharacter(Formfeed));
+            Assert.True(Program.IsEscapableCharacter("0123\\fNoHex", 5));
         }
 
         [Fact]
         public void IsEscapableCharacterWhenNewlineShouldReturnTrue()
         {
-            const char Newline = 'n';
-
-            Assert.True(Program.IsEscapableCharacter(Newline));
+            Assert.True(Program.IsEscapableCharacter("0123\\nNoHex", 5));
         }
 
         [Fact]
         public void IsEscapableCharacterWhenCarriageReturnShouldReturnTrue()
         {
-            const char CarriageReturn = 'r';
-
-            Assert.True(Program.IsEscapableCharacter(CarriageReturn));
+            Assert.True(Program.IsEscapableCharacter("0123\\rNoHex", 5));
         }
 
         [Fact]
         public void IsEscapableCharacterWhenHorizontalTabShouldReturnTrue()
         {
-            const char HorizontalTab = 't';
-
-            Assert.True(Program.IsEscapableCharacter(HorizontalTab));
+            Assert.True(Program.IsEscapableCharacter("0123\\tNoHex", 5));
         }
 
         [Fact]
         public void IsEscapableCharacterWhenNonEscapableCharacterShouldReturnFalse()
         {
-            const char NonEscapableCharacter = 'a';
+            Assert.False(Program.IsEscapableCharacter("0123\\aNoHex", 5));
+        }
 
-            Assert.False(Program.IsEscapableCharacter(NonEscapableCharacter));
+        [Fact]
+        public void IsEscapableCharacterWhenUnicodeCharacterFollowedByFourHexCharactersShouldReturnTrue()
+        {
+            Assert.True(Program.IsEscapableCharacter("0123\\u67B9x", 5));
         }
     }
 }
