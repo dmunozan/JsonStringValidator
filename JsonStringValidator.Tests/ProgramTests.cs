@@ -158,5 +158,11 @@ namespace JsonStringValidator.Tests
         {
             Assert.True(Program.IsEscapableCharacter("0123\\u67B9x", 5));
         }
+
+        [Fact]
+        public void IsEscapableCharacterWhenUnicodeCharacterNotFollowedByFourHexCharactersShouldReturnFalse()
+        {
+            Assert.False(Program.IsEscapableCharacter("0123\\uG7B9x", 5));
+        }
     }
 }
