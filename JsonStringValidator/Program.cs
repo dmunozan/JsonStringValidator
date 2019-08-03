@@ -23,21 +23,23 @@ namespace JsonStringValidator
 
             string unquotedInputData = inputData.Substring(1, inputData.Length - MinimumQuotationMarks);
 
-            int index = 0;
+            int currentIndex = 0;
 
-            while (index < unquotedInputData.Length)
+            while (currentIndex < unquotedInputData.Length)
             {
-                if (unquotedInputData[index] <= Convert.ToChar(ControlCharUpperLimit) || unquotedInputData[index] == '\"')
+                int incrementIndex = 1;
+
+                if (unquotedInputData[currentIndex] <= Convert.ToChar(ControlCharUpperLimit) || unquotedInputData[currentIndex] == '\"')
                 {
                     return "Invalid";
                 }
 
-                if (unquotedInputData[index] == '\\' && (index == unquotedInputData.Length - 1 || !IsEscapableCharacter(unquotedInputData, ++index)))
+                if (unquotedInputData[currentIndex] == '\\' && (currentIndex == unquotedInputData.Length - 1 || !IsEscapableCharacter(unquotedInputData, currentIndex, out incrementIndex)))
                 {
                     return "Invalid";
                 }
 
-                index++;
+                currentIndex += incrementIndex;
             }
 
             return "Valid";
@@ -60,9 +62,11 @@ namespace JsonStringValidator
             return inputData[0] == '\"' && inputData[inputData.Length - 1] == '\"';
         }
 
-        public static bool IsEscapableCharacter(string unquotedInputData, int index)
+        public static bool IsEscapableCharacter(string unquotedInputData, int currentIndex, out int incrementIndex)
         {
             const int NumberOfHexCharacters = 4;
+            incrementIndex = 1;
+            int nextCharacter = currentIndex + incrementIndex;
 
             char[] escapableCharacters = { '\"', '\\', '/', 'b', 'f', 'n', 'r', 't' };
             char[] hexCharacters = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
@@ -72,22 +76,24 @@ namespace JsonStringValidator
                 return false;
             }
 
-            if (unquotedInputData[index] == 'u' && unquotedInputData.Length > index + NumberOfHexCharacters)
+            if (unquotedInputData[nextCharacter] == 'u' && unquotedInputData.Length > nextCharacter + NumberOfHexCharacters)
             {
                 string lowerCaseUnquotedInputData = unquotedInputData.ToLower();
 
                 for (int i = 1; i <= NumberOfHexCharacters; i++)
                 {
-                    if (Array.IndexOf(hexCharacters, lowerCaseUnquotedInputData[index + i]) == -1)
+                    if (Array.IndexOf(hexCharacters, lowerCaseUnquotedInputData[nextCharacter + i]) == -1)
                     {
                         return false;
                     }
                 }
 
+                incrementIndex += NumberOfHexCharacters;
                 return true;
             }
 
-            return Array.IndexOf(escapableCharacters, unquotedInputData[index]) >= 0;
+            incrementIndex++;
+            return Array.IndexOf(escapableCharacters, unquotedInputData[nextCharacter]) >= 0;
         }
     }
 }
