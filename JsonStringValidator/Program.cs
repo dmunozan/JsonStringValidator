@@ -65,7 +65,7 @@ namespace JsonStringValidator
             const int NumberOfHexCharacters = 4;
 
             char[] escapableCharacters = { '\"', '\\', '/', 'b', 'f', 'n', 'r', 't' };
-            char[] hexCharacters = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f', 'A', 'B', 'C', 'D', 'E', 'F' };
+            char[] hexCharacters = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
 
             if (unquotedInputData == null)
             {
@@ -74,9 +74,11 @@ namespace JsonStringValidator
 
             if (unquotedInputData[index] == 'u' && unquotedInputData.Length > index + NumberOfHexCharacters)
             {
+                string lowerCaseUnquotedInputData = unquotedInputData.ToLower();
+
                 for (int i = 1; i <= NumberOfHexCharacters; i++)
                 {
-                    if (Array.IndexOf(hexCharacters, unquotedInputData[index + i]) == -1)
+                    if (Array.IndexOf(hexCharacters, lowerCaseUnquotedInputData[index + i]) == -1)
                     {
                         return false;
                     }
