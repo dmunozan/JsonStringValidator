@@ -54,17 +54,13 @@ namespace JsonStringValidator.Tests
         [Fact]
         public void IsValidJsonStringWhenAllowedCharacterAndBackslashShouldReturnInvalid()
         {
-            const int Backslash = 92;
-
-            Assert.Equal("Invalid", Program.IsValidJsonString("\"2" + Convert.ToChar(Backslash) + "\""));
+            Assert.Equal("Invalid", Program.IsValidJsonString("\"2\\\""));
         }
 
         [Fact]
         public void IsValidJsonStringWhenAllowedCharacterAndQuotationMarkShouldReturnInvalid()
         {
-            const int QuotationMark = 34;
-
-            Assert.Equal("Invalid", Program.IsValidJsonString("\"2" + Convert.ToChar(QuotationMark) + "\""));
+            Assert.Equal("Invalid", Program.IsValidJsonString("\"2\"\""));
         }
 
         [Fact]
