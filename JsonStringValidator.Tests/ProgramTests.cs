@@ -102,67 +102,67 @@ namespace JsonStringValidator.Tests
         [Fact]
         public void IsEscapableCharacterWhenDoubleQuoteShouldReturnTrue()
         {
-            Assert.True(Program.IsEscapableCharacter("0123\\\"NoHex", 5));
+            Assert.True(Program.IsEscapableCharacter("0123\\\"NoHex", 4, out int incrementIndex));
         }
 
         [Fact]
         public void IsEscapableCharacterWhenBackslashShouldReturnTrue()
         {
-            Assert.True(Program.IsEscapableCharacter("0123\\\\NoHex", 5));
+            Assert.True(Program.IsEscapableCharacter("0123\\\\NoHex", 4, out int incrementIndex));
         }
 
         [Fact]
         public void IsEscapableCharacterWhenSlashShouldReturnTrue()
         {
-            Assert.True(Program.IsEscapableCharacter("0123\\/NoHex", 5));
+            Assert.True(Program.IsEscapableCharacter("0123\\/NoHex", 4, out int incrementIndex));
         }
 
         [Fact]
         public void IsEscapableCharacterWhenBackspaceShouldReturnTrue()
         {
-            Assert.True(Program.IsEscapableCharacter("0123\\bNoHex", 5));
+            Assert.True(Program.IsEscapableCharacter("0123\\bNoHex", 4, out int incrementIndex));
         }
 
         [Fact]
         public void IsEscapableCharacterWhenFormfeedShouldReturnTrue()
         {
-            Assert.True(Program.IsEscapableCharacter("0123\\fNoHex", 5));
+            Assert.True(Program.IsEscapableCharacter("0123\\fNoHex", 4, out int incrementIndex));
         }
 
         [Fact]
         public void IsEscapableCharacterWhenNewlineShouldReturnTrue()
         {
-            Assert.True(Program.IsEscapableCharacter("0123\\nNoHex", 5));
+            Assert.True(Program.IsEscapableCharacter("0123\\nNoHex", 4, out int incrementIndex));
         }
 
         [Fact]
         public void IsEscapableCharacterWhenCarriageReturnShouldReturnTrue()
         {
-            Assert.True(Program.IsEscapableCharacter("0123\\rNoHex", 5));
+            Assert.True(Program.IsEscapableCharacter("0123\\rNoHex", 4, out int incrementIndex));
         }
 
         [Fact]
         public void IsEscapableCharacterWhenHorizontalTabShouldReturnTrue()
         {
-            Assert.True(Program.IsEscapableCharacter("0123\\tNoHex", 5));
+            Assert.True(Program.IsEscapableCharacter("0123\\tNoHex", 4, out int incrementIndex));
         }
 
         [Fact]
         public void IsEscapableCharacterWhenNonEscapableCharacterShouldReturnFalse()
         {
-            Assert.False(Program.IsEscapableCharacter("0123\\aNoHex", 5));
+            Assert.False(Program.IsEscapableCharacter("0123\\aNoHex", 4, out int incrementIndex));
         }
 
         [Fact]
         public void IsEscapableCharacterWhenUnicodeCharacterFollowedByFourHexCharactersShouldReturnTrue()
         {
-            Assert.True(Program.IsEscapableCharacter("0123\\u67B9x", 5));
+            Assert.True(Program.IsEscapableCharacter("0123\\u67B9x", 4, out int incrementIndex));
         }
 
         [Fact]
         public void IsEscapableCharacterWhenUnicodeCharacterNotFollowedByFourHexCharactersShouldReturnFalse()
         {
-            Assert.False(Program.IsEscapableCharacter("0123\\uG7B9x", 5));
+            Assert.False(Program.IsEscapableCharacter("0123\\uG7B9x", 4, out int incrementIndex));
         }
     }
 }
