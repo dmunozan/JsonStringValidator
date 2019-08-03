@@ -35,7 +35,7 @@ namespace JsonStringValidator
                     return "Invalid";
                 }
 
-                if (unquotedInputData[index] == Convert.ToChar(Backslash) && (index == unquotedInputData.Length - 1 || !IsEscapableCharacter(unquotedInputData[++index])))
+                if (unquotedInputData[index] == Convert.ToChar(Backslash) && (index == unquotedInputData.Length - 1 || !IsEscapableCharacter(unquotedInputData, ++index)))
                 {
                     return "Invalid";
                 }
@@ -61,17 +61,38 @@ namespace JsonStringValidator
             return inputData[0] == Convert.ToChar(QuotationMark) && inputData[inputData.Length - 1] == Convert.ToChar(QuotationMark);
         }
 
-        public static bool IsEscapableCharacter(char escapedChar)
+        public static bool IsEscapableCharacter(string unquotedInputData, int index)
         {
             const char Backspace = 'b';
             const char Formfeed = 'f';
             const char Newline = 'n';
             const char CarriageReturn = 'r';
             const char HorizontalTab = 't';
+            const char Unicode = 'u';
+            const int NumberOfHexCharacters = 4;
 
             char[] escapableCharacters = { Convert.ToChar(QuotationMark), Convert.ToChar(Backslash), Convert.ToChar(Slash), Backspace, Formfeed, Newline, CarriageReturn, HorizontalTab };
+            char[] hexCharacters = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f', 'A', 'B', 'C', 'D', 'E', 'F' };
 
-            return Array.IndexOf(escapableCharacters, escapedChar) >= 0;
+            if (unquotedInputData == null)
+            {
+                return false;
+            }
+
+            if (unquotedInputData[index] == Unicode && unquotedInputData.Length > index + NumberOfHexCharacters)
+            {
+                for (int i = 1; i <= NumberOfHexCharacters; i++)
+                {
+                    if (Array.IndexOf(hexCharacters, unquotedInputData[index + i]) == -1)
+                    {
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+
+            return Array.IndexOf(escapableCharacters, unquotedInputData[index]) >= 0;
         }
     }
 }
