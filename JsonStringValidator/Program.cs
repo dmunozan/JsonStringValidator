@@ -68,8 +68,8 @@ namespace JsonStringValidator
             incrementIndex = 1;
             int nextCharacter = currentIndex + incrementIndex;
 
-            char[] escapableCharacters = { '\"', '\\', '/', 'b', 'f', 'n', 'r', 't' };
-            char[] hexCharacters = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
+            const string EscapableCharacters = "\"\\/bfnrt";
+            const string HexCharacters = "0123456789abcdef";
 
             if (unquotedInputData == null)
             {
@@ -82,7 +82,7 @@ namespace JsonStringValidator
 
                 for (int i = 1; i <= NumberOfHexCharacters; i++)
                 {
-                    if (Array.IndexOf(hexCharacters, lowerCaseUnquotedInputData[nextCharacter + i]) == -1)
+                    if (HexCharacters.IndexOf(lowerCaseUnquotedInputData[nextCharacter + i]) == -1)
                     {
                         return false;
                     }
@@ -93,7 +93,7 @@ namespace JsonStringValidator
             }
 
             incrementIndex++;
-            return Array.IndexOf(escapableCharacters, unquotedInputData[nextCharacter]) >= 0;
+            return EscapableCharacters.IndexOf(unquotedInputData[nextCharacter]) >= 0;
         }
     }
 }
